@@ -1,5 +1,5 @@
 #include "MyInfo.h"
-int main(int argc,char** argv)
+int main()
 {
     Iam();
 }

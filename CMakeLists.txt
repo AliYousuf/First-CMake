@@ -1,5 +1,6 @@
 
 #PROJECT(ME)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.4)
 
 #List of all source files
 SET(MY_SRC_FILES main.cpp MyInfo.cpp)
@@ -7,5 +8,17 @@ SET(MY_SRC_FILES main.cpp MyInfo.cpp)
 #Set compile options
 SET(CMAKE_CXX_FLAGS "-O2 -Wall")
 
+# selecting the build mode in their IDE
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -std=c++11")
+	SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG} -g")
+	SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELEASE} -O2")
+elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
+	if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+		string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+	else()
+		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+	endif()
+endif()
 #Add target for my programe 
 ADD_EXECUTABLE(me ${MY_SRC_FILES})
