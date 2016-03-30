@@ -1,5 +1,5 @@
 #include "MyInfo.h"
 int main()
 {
-    Iam();
+    am::Iam();
 }

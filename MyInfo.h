@@ -1,1 +1,6 @@
+
+namespace am{
+
 void Iam();
+
+}
